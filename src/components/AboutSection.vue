@@ -1,11 +1,15 @@
 <script setup>
 import aboutImg from '../assets/images/about.webp'
+import { useReveal } from '../composables/useReveal'
+
+const quoteEl = useReveal({ direction: 'up', distance: 30, delay: 100, blur: true, duration: 800 })
+const imageEl = useReveal({ direction: 'scale', delay: 300, duration: 800 })
 </script>
 
 <template>
   <section id="about" class="about">
     <div class="container about__grid">
-      <div class="about__quote">
+      <div class="about__quote" ref="quoteEl">
         <span class="about__mark">"</span>
         <blockquote class="about__text">
           We don't decorate.<br />
@@ -16,7 +20,7 @@ import aboutImg from '../assets/images/about.webp'
           bukan soal tren &mdash; tapi soal karakter yang abadi.
         </p>
       </div>
-      <div class="about__image">
+      <div class="about__image" ref="imageEl">
         <img :src="aboutImg" alt="MAISON ÉLAN Team" class="about__img" />
       </div>
     </div>
@@ -28,6 +32,7 @@ import aboutImg from '../assets/images/about.webp'
   background: var(--ink);
   padding: 120px 0;
   color: var(--white);
+  scroll-margin-top: 80px;
 }
 
 .about__grid {

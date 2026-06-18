@@ -1,11 +1,15 @@
 <script setup>
 import heroImg from '../assets/images/hero.webp'
+import { useReveal } from '../composables/useReveal'
+
+const contentEl = useReveal({ direction: 'up', distance: 30, delay: 200, blur: true, duration: 900 })
+const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: true, duration: 900 })
 </script>
 
 <template>
   <section class="hero">
     <div class="container hero__grid">
-      <div class="hero__content">
+      <div class="hero__content" ref="contentEl">
         <h1 class="hero__headline">
           <span class="hero__headline--italic">Crafting fashion</span>
           <span class="hero__headline--bold">that endures.</span>
@@ -16,7 +20,7 @@ import heroImg from '../assets/images/hero.webp'
         </p>
         <a href="#work" class="btn-outlined">Lihat Koleksi</a>
       </div>
-      <div class="hero__image">
+      <div class="hero__image" ref="imageEl">
         <img :src="heroImg" alt="MAISON ÉLAN Fashion" class="hero__img" />
       </div>
     </div>

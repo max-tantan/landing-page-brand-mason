@@ -1,20 +1,65 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import { animate } from 'animejs'
+
+const statsEl = ref(null)
+const displayed = ref(['0+', '0%', '0+'])
+
+let observed = false
+
+onMounted(() => {
+  const el = statsEl.value?.$el || statsEl.value
+  if (!el) return
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting && !observed) {
+        observed = true
+        animateNumbers()
+        observer.disconnect()
+      }
+    },
+    { threshold: 0.3 }
+  )
+  observer.observe(el)
+})
+
+const targetValues = [
+  { val: 15, suffix: '+' },
+  { val: 97, suffix: '%' },
+  { val: 120, suffix: '+' }
+]
+
+function animateNumbers() {
+  const objs = targetValues.map(t => ({ current: 0, ...t }))
+
+  animate(objs, {
+    current: (_, i) => objs[i].val,
+    round: 1,
+    duration: 1500,
+    delay: (_, i) => i * 200,
+    easing: 'easeOutCubic',
+    update: () => {
+      displayed.value = objs.map(o => o.current + o.suffix)
+    }
+  })
+}
 </script>
 
 <template>
-  <section class="stats">
+  <section class="stats" ref="statsEl">
     <hr class="section-divider" />
     <div class="container stats__grid">
       <div class="stats__item">
-        <span class="stats__number">15+</span>
+        <span class="stats__number">{{ displayed[0] }}</span>
         <span class="stats__label">Tahun Berdiri</span>
       </div>
       <div class="stats__item">
-        <span class="stats__number">97%</span>
+        <span class="stats__number">{{ displayed[1] }}</span>
         <span class="stats__label">Kepuasan Klien</span>
       </div>
       <div class="stats__item">
-        <span class="stats__number">120+</span>
+        <span class="stats__number">{{ displayed[2] }}</span>
         <span class="stats__label">Koleksi Rilis</span>
       </div>
     </div>

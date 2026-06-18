@@ -1,9 +1,12 @@
 <script setup>
+import { useReveal } from '../composables/useReveal'
+
+const ctaEl = useReveal({ direction: 'scale', delay: 150, duration: 800, blur: true })
 </script>
 
 <template>
   <section id="contact" class="cta">
-    <div class="container cta__inner">
+    <div class="container cta__inner" ref="ctaEl">
       <h2 class="cta__headline">Ready to start?</h2>
       <a href="mailto:hello@maisonelan.com" class="btn-cta">Get in touch &rarr;</a>
     </div>
@@ -15,6 +18,7 @@
   background: var(--forest);
   padding: 120px 0;
   color: var(--white);
+  scroll-margin-top: 80px;
 }
 
 .cta__inner {

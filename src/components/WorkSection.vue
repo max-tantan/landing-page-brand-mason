@@ -2,6 +2,7 @@
 import work1 from '../assets/images/work-1.webp'
 import work2 from '../assets/images/work-2.webp'
 import work3 from '../assets/images/work-3.jpg'
+import { useReveal } from '../composables/useReveal'
 
 const projects = [
   {
@@ -26,13 +27,27 @@ const projects = [
     src: work3
   }
 ]
+
+const projectRefs = projects.map((_, i) =>
+  useReveal({ direction: 'up', distance: 30, delay: i * 150, duration: 700, blur: true })
+)
+
+function setProjectRef(el, index) {
+  projectRefs[index].value = el
+}
 </script>
 
 <template>
   <section id="work" class="work">
     <div class="container">
       <h2 class="work__title">Koleksi Terpilih</h2>
-      <div v-for="(project, index) in projects" :key="project.id" class="work__project" :class="{ 'work__project--reverse': index % 2 === 1 }">
+      <div
+        v-for="(project, index) in projects"
+        :key="project.id"
+        :ref="el => setProjectRef(el, index)"
+        class="work__project"
+        :class="{ 'work__project--reverse': index % 2 === 1 }"
+      >
         <div class="work__image-wrap">
           <div class="work__image">
             <img :src="project.src" :alt="project.name" class="work__img" />
@@ -52,6 +67,7 @@ const projects = [
 <style scoped>
 .work {
   padding: 120px 0;
+  scroll-margin-top: 80px;
 }
 
 .work__title {
