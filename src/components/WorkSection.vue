@@ -1,25 +1,29 @@
 <script setup>
+import work1 from '../assets/images/work-1.webp'
+import work2 from '../assets/images/work-2.webp'
+import work3 from '../assets/images/work-3.jpg'
+
 const projects = [
   {
     id: '01',
     name: 'Spring Summer 2025',
     category: 'Ready-to-Wear',
     description: 'Koleksi yang merayakan kebebasan siluet dengan material alami dan palet warna tanah.',
-    image: 'ss25'
+    src: work1
   },
   {
     id: '02',
     name: 'Luxury Streetwear',
     category: 'Capsule Collection',
     description: 'Perpaduan antara tailoring klasik dengan energi jalanan, menciptakan bahasa visual baru.',
-    image: 'street'
+    src: work2
   },
   {
     id: '03',
     name: 'Evening Silhouettes',
     category: 'Haute Couture',
     description: 'Eksplorasi draping dan struktur yang menangkap cahaya dalam setiap lipatan kain.',
-    image: 'evening'
+    src: work3
   }
 ]
 </script>
@@ -31,30 +35,7 @@ const projects = [
       <div v-for="(project, index) in projects" :key="project.id" class="work__project" :class="{ 'work__project--reverse': index % 2 === 1 }">
         <div class="work__image-wrap">
           <div class="work__image">
-            <svg viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" class="work__svg">
-              <rect width="600" height="500" rx="2" fill="var(--ink, #1A1A1A)" opacity="0.03"/>
-              <rect x="40" y="40" width="520" height="420" rx="2" stroke="var(--sand, #C8B89A)" stroke-width="0.5" opacity="0.5"/>
-              <template v-if="project.image === 'ss25'">
-                <ellipse cx="300" cy="250" rx="100" ry="140" fill="var(--forest, #2C4A3E)" opacity="0.12"/>
-                <path d="M200 320 Q300 200 400 320" stroke="var(--forest, #2C4A3E)" stroke-width="2" fill="none" opacity="0.5"/>
-                <path d="M220 340 Q300 240 380 340" stroke="var(--sand, #C8B89A)" stroke-width="1.5" fill="none" opacity="0.4"/>
-                <circle cx="300" cy="200" r="50" fill="none" stroke="var(--ink, #1A1A1A)" stroke-width="1" opacity="0.15"/>
-                <line x1="100" y1="420" x2="500" y2="420" stroke="var(--sand, #C8B89A)" stroke-width="0.5" opacity="0.3"/>
-              </template>
-              <template v-else-if="project.image === 'street'">
-                <rect x="150" y="100" width="120" height="280" rx="4" fill="var(--ink, #1A1A1A)" opacity="0.06"/>
-                <rect x="330" y="120" width="100" height="260" rx="4" fill="var(--forest, #2C4A3E)" opacity="0.1"/>
-                <rect x="160" y="130" width="100" height="30" rx="2" stroke="var(--forest, #2C4A3E)" stroke-width="1" opacity="0.3"/>
-                <rect x="340" y="150" width="80" height="20" rx="2" stroke="var(--forest, #2C4A3E)" stroke-width="1" opacity="0.3"/>
-                <circle cx="210" cy="100" r="30" fill="none" stroke="var(--sand, #C8B89A)" stroke-width="1.5" opacity="0.5"/>
-              </template>
-              <template v-else>
-                <ellipse cx="300" cy="220" rx="80" ry="140" fill="var(--ink, #1A1A1A)" opacity="0.05"/>
-                <path d="M180 420 Q240 300 300 380 Q360 300 420 420" stroke="var(--forest, #2C4A3E)" stroke-width="1.5" fill="none" opacity="0.4"/>
-                <circle cx="300" cy="160" r="40" fill="var(--ink, #1A1A1A)" opacity="0.04"/>
-                <line x1="200" y1="440" x2="400" y2="440" stroke="var(--sand, #C8B89A)" stroke-width="0.5" opacity="0.3"/>
-              </template>
-            </svg>
+            <img :src="project.src" :alt="project.name" class="work__img" />
           </div>
         </div>
         <div class="work__info">
@@ -117,10 +98,12 @@ const projects = [
   transform: scale(1.02);
 }
 
-.work__svg {
+.work__img {
   width: 100%;
-  height: auto;
+  height: 420px;
+  object-fit: cover;
   display: block;
+  border-radius: 2px;
 }
 
 .work__info {

@@ -1,4 +1,5 @@
 <script setup>
+import aboutImg from '../assets/images/about.webp'
 </script>
 
 <template>
@@ -16,15 +17,7 @@
         </p>
       </div>
       <div class="about__image">
-        <svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg" class="about__svg">
-          <rect width="400" height="500" rx="2" fill="var(--white, #FFFFFF)" opacity="0.05"/>
-          <ellipse cx="200" cy="200" rx="70" ry="90" fill="var(--white, #FFFFFF)" opacity="0.08"/>
-          <path d="M120 420 Q200 300 280 420" stroke="var(--white, #FFFFFF)" stroke-width="1" fill="none" opacity="0.2"/>
-          <line x1="150" y1="430" x2="250" y2="430" stroke="var(--white, #FFFFFF)" stroke-width="0.5" opacity="0.15"/>
-          <circle cx="200" cy="150" r="55" fill="none" stroke="var(--white, #FFFFFF)" stroke-width="1" opacity="0.15"/>
-          <path d="M160 370 Q200 330 240 370" stroke="var(--white, #FFFFFF)" stroke-width="0.8" fill="none" opacity="0.2"/>
-          <line x1="100" y1="480" x2="300" y2="480" stroke="var(--white, #FFFFFF)" stroke-width="0.5" opacity="0.1"/>
-        </svg>
+        <img :src="aboutImg" alt="MAISON ÉLAN Team" class="about__img" />
       </div>
     </div>
   </section>
@@ -93,10 +86,12 @@
   justify-content: center;
 }
 
-.about__svg {
+.about__img {
   width: 100%;
   max-width: 320px;
-  height: auto;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 2px;
 }
 
 @media (max-width: 768px) {
@@ -128,8 +123,9 @@
     order: -1;
   }
 
-  .about__svg {
+  .about__img {
     max-width: 240px;
+    height: 300px;
   }
 }
 </style>

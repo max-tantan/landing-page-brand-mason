@@ -1,4 +1,5 @@
 <script setup>
+import heroImg from '../assets/images/hero.webp'
 </script>
 
 <template>
@@ -16,17 +17,7 @@
         <a href="#work" class="btn-outlined">Lihat Koleksi</a>
       </div>
       <div class="hero__image">
-        <svg viewBox="0 0 500 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero__svg">
-          <rect width="500" height="600" rx="4" fill="var(--sand, #C8B89A)" opacity="0.15"/>
-          <ellipse cx="250" cy="250" rx="120" ry="160" fill="var(--ink, #1A1A1A)" opacity="0.08"/>
-          <path d="M250 80 L310 200 L250 180 L190 200 Z" fill="var(--forest, #2C4A3E)" opacity="0.3"/>
-          <path d="M180 350 Q250 280 320 350 Q250 400 180 350Z" fill="var(--ink, #1A1A1A)" opacity="0.06"/>
-          <line x1="160" y1="420" x2="340" y2="420" stroke="var(--sand, #C8B89A)" stroke-width="1" opacity="0.5"/>
-          <line x1="170" y1="440" x2="330" y2="440" stroke="var(--sand, #C8B89A)" stroke-width="1" opacity="0.3"/>
-          <line x1="180" y1="460" x2="320" y2="460" stroke="var(--sand, #C8B89A)" stroke-width="1" opacity="0.2"/>
-          <circle cx="250" cy="350" r="60" fill="none" stroke="var(--forest, #2C4A3E)" stroke-width="1" opacity="0.2"/>
-          <path d="M200 140 Q250 100 300 140" stroke="var(--forest, #2C4A3E)" stroke-width="1.5" fill="none" opacity="0.4"/>
-        </svg>
+        <img :src="heroImg" alt="MAISON ÉLAN Fashion" class="hero__img" />
       </div>
     </div>
   </section>
@@ -93,11 +84,13 @@
   align-items: center;
 }
 
-.hero__svg {
+.hero__img {
   width: 100%;
   max-width: 420px;
+  height: 560px;
+  object-fit: cover;
   transform: rotate(-2deg);
-  height: auto;
+  border-radius: 2px;
 }
 
 .btn-outlined {
@@ -151,8 +144,9 @@
     order: -1;
   }
 
-  .hero__svg {
+  .hero__img {
     max-width: 300px;
+    height: 400px;
   }
 }
 </style>
