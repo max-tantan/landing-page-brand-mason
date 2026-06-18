@@ -24,24 +24,25 @@ onMounted(() => {
   observer.observe(el)
 })
 
-const targetValues = [
-  { val: 15, suffix: '+' },
-  { val: 97, suffix: '%' },
-  { val: 120, suffix: '+' }
+const targets = [
+  { v: 0, to: 25, suffix: '+' },
+  { v: 0, to: 97, suffix: '%' },
+  { v: 0, to: 60, suffix: '+' }
 ]
 
 function animateNumbers() {
-  const objs = targetValues.map(t => ({ current: 0, ...t }))
-
-  animate(objs, {
-    current: (_, i) => objs[i].val,
-    round: 1,
-    duration: 1500,
-    delay: (_, i) => i * 200,
-    easing: 'easeOutCubic',
-    update: () => {
-      displayed.value = objs.map(o => o.current + o.suffix)
-    }
+  targets.forEach((t, i) => {
+    const obj = { v: 0 }
+    animate(obj, {
+      v: t.to,
+      duration: 800,
+      delay: i * 200,
+      ease: 'easeOutCubic',
+      onUpdate: () => {
+        displayed.value[i] = Math.round(obj.v) + t.suffix
+        displayed.value = [...displayed.value]
+      }
+    })
   })
 }
 </script>
