@@ -2,26 +2,28 @@
 import heroImg from '../assets/images/hero.webp'
 import { useReveal } from '../composables/useReveal'
 
-const contentEl = useReveal({ direction: 'up', distance: 30, delay: 200, blur: true, duration: 900 })
-const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: true, duration: 900 })
+const contentEl = useReveal({ staggerDelay: 200, direction: 'up', distance: 40, delay: 200, blur: true, duration: 1000 })
+const imageEl = useReveal({ type: 'clip', direction: 'up', delay: 600, duration: 1400, easing: 'easeOutExpo' })
 </script>
 
 <template>
   <section class="hero">
     <div class="container hero__grid">
       <div class="hero__content" ref="contentEl">
-        <h1 class="hero__headline">
-          <span class="hero__headline--italic">Crafting fashion</span>
-          <span class="hero__headline--bold">that endures.</span>
-        </h1>
+        <h1 class="hero__headline--italic">Crafting fashion</h1>
+        <h1 class="hero__headline--bold">that endures.</h1>
         <p class="hero__sub">
           Identitas visual untuk rumah mode yang ingin bertahan lama,
           bukan sekadar terlihat bagus musim ini.
         </p>
-        <a href="#work" class="btn-outlined">Lihat Koleksi</a>
+        <div>
+          <a href="#work" class="btn-outlined hover-target">Lihat Koleksi</a>
+        </div>
       </div>
       <div class="hero__image" ref="imageEl">
-        <img :src="heroImg" alt="MAISON ÉLAN Fashion" class="hero__img" />
+        <div class="hero__img-wrapper">
+          <img :src="heroImg" alt="MAISON ÉLAN Fashion" class="hero__img" />
+        </div>
       </div>
     </div>
   </section>
@@ -47,29 +49,25 @@ const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: 
   max-width: 540px;
 }
 
-.hero__headline {
-  margin: 0 0 24px;
-  font-size: 0;
-  line-height: 1.1;
-}
-
 .hero__headline--italic {
   display: block;
   font-family: var(--font-display);
-  font-size: 96px;
+  font-size: clamp(40px, 10vw, 96px);
   font-weight: 300;
   font-style: italic;
   color: var(--ink);
   line-height: 1.05;
+  margin: 0;
 }
 
 .hero__headline--bold {
   display: block;
   font-family: var(--font-body);
-  font-size: 96px;
+  font-size: clamp(40px, 10vw, 96px);
   font-weight: 700;
   color: var(--ink);
   line-height: 1.05;
+  margin: 0 0 24px 0;
 }
 
 .hero__sub {
@@ -88,13 +86,30 @@ const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: 
   align-items: center;
 }
 
+.hero__img-wrapper {
+  overflow: hidden;
+  border-radius: 2px;
+  transform: rotate(-2deg);
+  animation: float 6s ease-in-out infinite;
+}
+
 .hero__img {
   width: 100%;
   max-width: 420px;
   height: 560px;
   object-fit: cover;
-  transform: rotate(-2deg);
-  border-radius: 2px;
+  display: block;
+  transition: transform 0.6s ease-out;
+}
+
+.hero__img-wrapper:hover .hero__img {
+  transform: scale(1.05);
+}
+
+@keyframes float {
+  0% { transform: rotate(-2deg) translateY(0px); }
+  50% { transform: rotate(-2deg) translateY(-15px); }
+  100% { transform: rotate(-2deg) translateY(0px); }
 }
 
 .btn-outlined {
@@ -108,7 +123,7 @@ const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: 
   border: 1.5px solid var(--ink);
   background: transparent;
   transition: background 0.3s, color 0.3s;
-  cursor: pointer;
+  cursor: none; /* using custom cursor */
 }
 
 .btn-outlined:hover {
@@ -119,8 +134,9 @@ const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: 
 
 @media (max-width: 768px) {
   .hero {
-    padding: 100px 0 60px;
+    padding: 140px 0 60px;
     min-height: auto;
+    text-align: center;
   }
 
   .hero__grid {
@@ -130,18 +146,13 @@ const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: 
 
   .hero__content {
     max-width: 100%;
-  }
-
-  .hero__headline--italic {
-    font-size: 56px;
-  }
-
-  .hero__headline--bold {
-    font-size: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero__sub {
-    font-size: 16px;
+    margin: 0 0 32px;
   }
 
   .hero__image {
@@ -149,8 +160,8 @@ const imageEl = useReveal({ direction: 'right', distance: 40, delay: 400, blur: 
   }
 
   .hero__img {
-    max-width: 300px;
-    height: 400px;
+    max-width: 100%;
+    height: 360px;
   }
 }
 </style>

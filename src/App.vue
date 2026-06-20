@@ -1,4 +1,5 @@
 <script setup>
+import Cursor from './components/Cursor.vue'
 import NavBar from './components/NavBar.vue'
 import HeroSection from './components/HeroSection.vue'
 import StatsBar from './components/StatsBar.vue'
@@ -9,6 +10,7 @@ import FooterSection from './components/FooterSection.vue'
 </script>
 
 <template>
+  <Cursor />
   <NavBar />
   <main>
     <HeroSection />

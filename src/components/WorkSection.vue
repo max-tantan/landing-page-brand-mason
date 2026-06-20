@@ -29,7 +29,7 @@ const projects = [
 ]
 
 const projectRefs = projects.map((_, i) =>
-  useReveal({ direction: 'up', distance: 30, delay: i * 150, duration: 700, blur: true })
+  useReveal({ type: 'clip', direction: 'up', delay: i * 200, duration: 1200, easing: 'easeOutExpo' })
 )
 
 function setProjectRef(el, index) {
@@ -107,11 +107,12 @@ function setProjectRef(el, index) {
 }
 
 .work__image {
-  transition: transform 0.4s ease;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
 }
 
 .work__project:hover .work__image {
-  transform: scale(1.02);
+  transform: scale(1.08);
 }
 
 .work__img {
@@ -120,6 +121,11 @@ function setProjectRef(el, index) {
   object-fit: cover;
   display: block;
   border-radius: 2px;
+  transition: filter 0.8s ease;
+}
+
+.work__project:hover .work__img {
+  filter: brightness(0.9);
 }
 
 .work__info {
